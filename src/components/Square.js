@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Square = () => {
+const Square = ({square, ind, handleMove}) => {
 
     const style = {
         background:'#e8fcfc',
@@ -10,7 +10,12 @@ const Square = () => {
         cursor: 'pointer',
     }
     return (
-        <div></div>
+        <button style={style} onClick={() => handleMove(ind)}>
+
+            {square}
+
+
+        </button>
     );
 };
 

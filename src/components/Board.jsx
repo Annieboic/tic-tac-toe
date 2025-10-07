@@ -1,4 +1,5 @@
 import React from 'react';
+import Square from "./Square";
 
 
 
@@ -12,11 +13,21 @@ const style = {
     margin: "auto",
 }
 
-const Board = () => {
+const Board = ({board,handleMove}) => {
 
 
     return (
-        <div></div>
+        <div style={style}>
+
+            {board.map((square,ind) => (
+                <Square
+                key={ind}
+                square={square}
+                ind={ind}
+                handleMove={handleMove}/>
+            ))}
+
+        </div>
     );
 };
 
