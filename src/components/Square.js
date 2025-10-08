@@ -10,7 +10,7 @@ const Square = ({square, ind, handleMove}) => {
         cursor: 'pointer',
     }
     return (
-        <button style={style} onClick={() => handleMove(ind)}>
+        <button style={style} onClick={() => handleMove(ind)} className = {square ? 'blockEvents' : ''}>
 
             {square}
 
@@ -20,3 +20,7 @@ const Square = ({square, ind, handleMove}) => {
 };
 
 export default Square;
+
+//block square if square not null
+//check Winner function with 8 combinations
+//winner
