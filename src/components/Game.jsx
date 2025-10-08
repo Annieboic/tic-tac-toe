@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Board from "./Board";
 
 
@@ -8,9 +8,13 @@ const Game = () => {
 
     const [board, setBoard] = useState(initialState);
     const [player, setPlayer] = useState('X')
+    const [winner, setWinner] = useState('')
 
 
     function handleMove(index) {
+        if(winner){
+            return;
+        }
         const newBoard = board.map((el, ind) => ind === index ? player : el)
         setBoard(newBoard)
         setPlayer(
@@ -18,7 +22,42 @@ const Game = () => {
         )
     }
 
+    const findWinner = () => {
 
+        const lines = [
+            [0, 1, 2], //lines[i]
+            [3, 4, 5], //i
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ]
+        for (let i = 0; i < lines.length; i++) {
+            const[a,b,c] = lines[i];
+            if(board[a] === board[b] && board[a] === board[c]) {
+                setWinner(board[a])
+
+
+            }
+        }
+
+      const isDraw = !board.includes(null)
+        if(isDraw) {
+            return setWinner('draw')
+        }
+    }
+
+    useEffect(() => {
+        findWinner()
+    }, [board])
+
+    const handleReset =() =>{
+        setBoard(initialState);
+        setPlayer('X')
+        setWinner(null);
+    }
 
 
 
@@ -30,7 +69,9 @@ const Game = () => {
                 handleMove={handleMove}
             />
 
-            <div>Next Player: {player}</div>
+            <div style={{marginTop: '8px'}}>{winner === 'draw' ? 'It is a draw' : winner ? `Congratulations: ${winner}` : `Next Player: ${player}`}</div>
+
+            <button onClick={handleReset} style={{marginTop: '8px'}}>Reset</button>
         </div>
     );
 };
